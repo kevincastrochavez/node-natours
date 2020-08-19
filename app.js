@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const express = require("express");
 const morgan = require("morgan");
 
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
-  console.log("Hello, next");
+  // console.log("Hello, next");
   next();
 });
 
