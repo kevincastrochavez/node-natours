@@ -4,6 +4,16 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log("Hello, next");
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 // app.get("/", (req, res) => {
 //   res.status(200).json({ message: "Hello from the server", app: "Hola" });
 // });
@@ -17,8 +27,11 @@ const tours = JSON.parse(
 );
 
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
+
   res.status(200).json({
     status: "success",
+    time: req.requestTime,
     results: tours.length,
     data: {
       tours,
@@ -124,6 +137,7 @@ const deleteTour = (req, res) => {
 // app.delete("/api/v1/tours/:id", deleteTour);
 
 app.route("/api/v1/tours").get(getAllTours).post(createTour);
+
 app
   .route("/api/v1/tours/:id")
   .get(getTour)
