@@ -9,6 +9,7 @@
   "author": "Kevin Castro <kevin.castro.chavez0@gmail.com> (https://github.com/kevincastrochavez)",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   }
 }
