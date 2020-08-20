@@ -37,7 +37,7 @@ const tourSchema = new mongoose.Schema({
   summary: {
     type: String,
     trim: true,
-    required: [true, "A tour must have a descriptio"],
+    required: [true, "A tour must have a description"],
   },
   description: {
     type: String,
@@ -51,8 +51,13 @@ const tourSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    select: false,
   },
   startDates: [Date],
+  secretTour: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
