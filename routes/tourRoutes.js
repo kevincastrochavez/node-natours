@@ -11,6 +11,7 @@ router
   .get(tourController.aliasTopTours, tourController.getAllTours); // Route for top 5 tours
 
 router.route("/tour-stats").get(tourController.getTourStats);
+router.route("/monthly-plan/:year").get(tourController.getMonthlyPlan);
 
 router
   .route("/")
