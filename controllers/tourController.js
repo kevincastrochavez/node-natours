@@ -1,5 +1,13 @@
 const Tour = require("../models/tourModel");
 
+exports.aliasTopTours = (req, res, next) => {
+  // Prefilled fields to hit the route
+  req.query.limit = "5";
+  req.query.sort = "-ratingsAverage,price";
+  req.query.fields = "name,price,ratingsAverage,summary,difficulty";
+  next();
+};
+
 // exports.checkID = (req, res, next, val) => {
 //   // console.log(`Tour id is ${val}`);
 //   if (req.params.id * 1 > tours.length) {
