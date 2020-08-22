@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 ////////////////////////
 // ROUTES
 app.use("/api/v1/tours", tourRouter);
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1/users", userRouter);
 
 // Unhandled routes
 app.all("*", (req, res, next) => {
