@@ -6,6 +6,7 @@ const authenticationController = require("../controllers/authenticationControlle
 const router = express.Router();
 
 router.post("/signup", authenticationController.signup);
+router.post("/login", authenticationController.login);
 
 router
   .route("/")
