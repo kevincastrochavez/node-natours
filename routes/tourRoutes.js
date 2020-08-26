@@ -1,5 +1,4 @@
 const express = require("express");
-
 const tourController = require("../controllers/tourController");
 const authenticationController = require("../controllers/authenticationController");
 // const reviewController = require("../controllers/reviewController");
@@ -24,16 +23,31 @@ router
   .get(tourController.aliasTopTours, tourController.getAllTours); // Route for top 5 tours
 
 router.route("/tour-stats").get(tourController.getTourStats);
-router.route("/monthly-plan/:year").get(tourController.getMonthlyPlan);
+router
+  .route("/monthly-plan/:year")
+  .get(
+    authenticationController.protect,
+    authenticationController.restrictTo("admin", "lead-guide", "guide"),
+    tourController.getMonthlyPlan
+  );
 
 router
   .route("/")
-  .get(authenticationController.protect, tourController.getAllTours)
-  .post(tourController.createTour);
+  .get(tourController.getAllTours)
+  .post(
+    authenticationController.protect,
+    authenticationController.restrictTo("admin", "lead-guide"),
+    tourController.createTour
+  );
+
 router
   .route("/:id")
   .get(tourController.getTour)
-  .patch(tourController.updateTour)
+  .patch(
+    authenticationController.protect,
+    authenticationController.restrictTo("admin", "lead-guide"),
+    tourController.updateTour
+  )
   .delete(
     authenticationController.protect,
     authenticationController.restrictTo("admin", "lead-guide"),

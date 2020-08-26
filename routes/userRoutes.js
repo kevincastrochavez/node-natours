@@ -7,37 +7,25 @@ const router = express.Router();
 
 router.post("/signup", authenticationController.signup);
 router.post("/login", authenticationController.login);
-
 router.post("/forgotPassword", authenticationController.forgotPassword);
 router.patch("/resetPassword/:token", authenticationController.resetPassword);
 
-router.patch(
-  "/updateMyPassword",
-  authenticationController.protect,
-  authenticationController.updatePassword
-);
+// PROTECT ALL ROUTES AFTER THIS MIDDLEWARE
+router.use(authenticationController.protect);
 
-router.get(
-  "/me",
-  authenticationController.protect,
-  userController.getMe,
-  userController.getUser
-);
-router.patch(
-  "/updateMe",
-  authenticationController.protect,
-  userController.updateMe
-);
-router.delete(
-  "/deleteMe",
-  authenticationController.protect,
-  userController.deleteMe
-);
+router.patch("/updateMyPassword", authenticationController.updatePassword);
+router.get("/me", userController.getMe, userController.getUser);
+router.patch("/updateMe", userController.updateMe);
+router.delete("/deleteMe", userController.deleteMe);
+
+// ONLY ADMINS ACCESS TO THIS ROUTES
+router.use(authenticationController.restrictTo("admin"));
 
 router
   .route("/")
   .get(userController.getAllUsers)
   .post(userController.createUser);
+
 router
   .route("/:id")
   .get(userController.getUser)
