@@ -17,12 +17,17 @@ router.patch(
   authenticationController.updatePassword
 );
 
+router.get(
+  "/me",
+  authenticationController.protect,
+  userController.getMe,
+  userController.getUser
+);
 router.patch(
   "/updateMe",
   authenticationController.protect,
   userController.updateMe
 );
-
 router.delete(
   "/deleteMe",
   authenticationController.protect,
